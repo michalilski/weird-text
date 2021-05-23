@@ -17,7 +17,7 @@ class Decoder:
             Decoded string.
         """
         text, words_list = self._preprocess_raw_text(encoded_text)
-        # regex for finding words longer than 4 - only this words could be encoded
+        # regex for finding words longer than 3 - only this words could be encoded
         words_regex = re.compile(r"[\w+]{4,}", re.U)
 
         # iterating through all encoded words to replace them with decoded ones
@@ -35,7 +35,7 @@ class Decoder:
                     len(current_word) == end - start
                     and current_encoded[0] == current_word[0]
                     and current_encoded[-1] == current_word[-1]
-                    and sorted(current_encoded[1:-1]) == sorted(current_word[1:-1])
+                    and self._is_permutation(current_encoded[-1:1], current_word[-1:1])
                 ):
 
                     # replacing encoded word in text with original one
@@ -70,3 +70,12 @@ class Decoder:
         return text[separator_list[0].span()[1] : separator_list[1].span()[0]], text[
             separator_list[1].span()[1] :
         ].split(" ")
+
+    def _is_permutation(self, word : str, pattern : str) -> bool:
+        return self._prepare_counting_dict(word) == self._prepare_counting_dict(pattern)
+    
+    def _prepare_counting_dict(self, word : str) -> dict:
+        word_dict = {}
+        for char in word:
+            word_dict[char] = word_dict.setdefault(char, 0) + 1
+        return word_dict
