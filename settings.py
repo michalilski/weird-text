@@ -9,3 +9,5 @@ PREPARED_SENTECES = [
     "This\nis anoooother one!",
     "AND THIS, IS THE, LAAAST - ONE HERE.",
 ]
+
+SEED = 27

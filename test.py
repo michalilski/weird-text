@@ -7,6 +7,7 @@ from settings import (
     MAX_RANDOM_WORD_LEN,
     PREPARED_SENTECES,
     RANDOM_ALPHABET,
+    SEED,
 )
 
 
@@ -80,6 +81,7 @@ def show_example_test(encoder: Encoder, decoder: Decoder, sentence: str):
 def main():
     # number of random generated sentences
     tested_random = 100
+    random.seed(SEED)
     enc = Encoder()
     dec = Decoder()
 
